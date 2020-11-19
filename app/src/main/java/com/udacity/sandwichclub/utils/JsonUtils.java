@@ -17,7 +17,6 @@ public class JsonUtils {
         String mName, mPlase, mDescription, mImage;
         List<String> alsoList = new ArrayList<>(), ingredientsList = new ArrayList<>();
 
-
         try {
             JSONObject mJson = new JSONObject(json);
             JSONObject name = mJson.getJSONObject("name");

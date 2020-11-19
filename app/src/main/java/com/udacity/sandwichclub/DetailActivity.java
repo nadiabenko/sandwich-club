@@ -5,7 +5,9 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
@@ -47,7 +49,7 @@ public class DetailActivity extends AppCompatActivity {
             return;
         }
 
-        populateUI();
+        populateUI(sandwich);
         Picasso.get().load(sandwich.getImage()).into(ingredientsIv);
 
         setTitle(sandwich.getMainName());
@@ -58,12 +60,34 @@ public class DetailActivity extends AppCompatActivity {
         Toast.makeText(this, R.string.detail_error_message, Toast.LENGTH_SHORT).show();
     }
 
-    private void populateUI() {
-        /*Log.i("GSON", sandwich.name.mainName);
-        List<String> list = sandwich.name.alsoKnownAs;
-        StringBuffer fullString = new StringBuffer(" ");
-        if (list != null) {
-            for (String string : list) fullString.append(string + ", ");
-        }*/
+    private void populateUI(Sandwich sandwich) {
+        TextView alsoKnownAsTextView = findViewById(R.id.also_known_tv);
+        alsoKnownAsTextView.setText("");
+
+        if(sandwich.getAlsoKnownAs().size()!=0) {
+            for (String string : sandwich.getAlsoKnownAs()) {
+                alsoKnownAsTextView.append(string + "\n");
+            }
+            alsoKnownAsTextView.setText(alsoKnownAsTextView.getText().toString().substring(0, alsoKnownAsTextView.getText().length() - 1));
+        } else {
+            alsoKnownAsTextView.setVisibility(View.GONE);
+        }
+
+        TextView placeOfOriginTextView = findViewById(R.id.origin_tv);
+
+        if(!sandwich.getPlaceOfOrigin().equals("")) {
+            placeOfOriginTextView.setText(sandwich.getPlaceOfOrigin());
+        } else {
+            placeOfOriginTextView.setVisibility(View.GONE);
+        }
+
+        TextView descriptionTextView = findViewById(R.id.description_tv);
+        descriptionTextView.setText(sandwich.getDescription());
+        TextView ingredientsTextView = findViewById(R.id.ingredients_tv);
+        ingredientsTextView.setText("");
+
+        for(String string: sandwich.getIngredients()){
+            ingredientsTextView.append(string + "\n");
+        }
     }
 }

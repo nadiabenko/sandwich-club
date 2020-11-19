@@ -2,13 +2,17 @@ package com.udacity.sandwichclub;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 import com.udacity.sandwichclub.model.Sandwich;
 import com.udacity.sandwichclub.utils.JsonUtils;
+
+import java.util.List;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -44,9 +48,7 @@ public class DetailActivity extends AppCompatActivity {
         }
 
         populateUI();
-        Picasso.with(this)
-                .load(sandwich.getImage())
-                .into(ingredientsIv);
+        Picasso.get().load(sandwich.getImage()).into(ingredientsIv);
 
         setTitle(sandwich.getMainName());
     }
@@ -57,6 +59,11 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void populateUI() {
-
+        /*Log.i("GSON", sandwich.name.mainName);
+        List<String> list = sandwich.name.alsoKnownAs;
+        StringBuffer fullString = new StringBuffer(" ");
+        if (list != null) {
+            for (String string : list) fullString.append(string + ", ");
+        }*/
     }
 }
